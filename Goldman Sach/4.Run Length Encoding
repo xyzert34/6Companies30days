@@ -1,0 +1,22 @@
+string encode(string a)
+{  
+    int n=a.length();
+    string src1="";
+    int i=0,cnt=1;
+    while(i<n)
+    {
+        if(a[i]==a[i+1])
+        {
+            cnt++;
+            i++;
+        }
+        if(a[i]!=a[i+1])
+        {
+            src1+=a[i]+to_string(cnt);
+            cnt=1;
+            i++;
+        }
+    }
+    return src1;
+}     
+ 
