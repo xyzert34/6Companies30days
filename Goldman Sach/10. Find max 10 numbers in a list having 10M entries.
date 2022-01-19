@@ -1,0 +1,5 @@
+Heap (priorityQueue)
+
+Maintain a min-heap with size 10. Add numbers to the queue and keeping track of the smallest number in the queue, then iterating through the other numbers,
+and each time we find one that is larger than the largest number in the priority queue, we remove the smallest number, add the new number,
+and again keep track of the smallest number in the queue.
