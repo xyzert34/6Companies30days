@@ -1,0 +1,75 @@
+class Solution {
+  public:
+    Node* parent(Node* root,int target,unordered_map<Node*,Node*> &m)
+    {
+        Node* res;
+        queue<Node*> q;
+        q.push(root);
+        while(!q.empty())
+        {
+            int n=q.size();
+            while(n--)
+            {
+                Node* cur=q.front();
+                q.pop();
+                if(cur->data==target)
+                    res=cur;
+                if(cur->left)
+                {
+                    m[cur->left]=cur;
+                    q.push(cur->left);
+                }
+                if(cur->right)
+                {
+                    m[cur->right]=cur;
+                    q.push(cur->right);
+                }
+            }
+        }
+        return res;
+    }
+    int minTime(Node* root, int target) 
+    {
+        unordered_map<Node*,Node* > m;
+        if(root==NULL)
+            return 0;
+        struct Node* cur;
+        cur=parent(root,target,m);
+        unordered_map<Node*,int> vis;
+        queue<Node*> q;
+        q.push(cur);
+        vis[cur]=1;
+        int cnt=0;
+        while(!q.empty())
+        {
+            int n=q.size();
+            int f=0;
+            while(n--)
+            {
+                struct Node* suf=q.front();
+                q.pop();
+                if(suf->left && !vis[suf->left])
+                    {
+                        f=1;
+                        q.push(suf->left);
+                        vis[suf->left]=1;
+                    }
+                if(suf->right && !vis[suf->right])
+                    {
+                        f=1;
+                        q.push(suf->right);
+                        vis[suf->right]=1;
+                    }
+                if(vis[m[suf]]!=1 &&m[suf])
+                    {
+                        f=1;
+                        q.push(m[suf]);
+                        vis[m[suf]]=1;
+                    }
+            }
+            if(f==1)
+                cnt++;
+        }
+        return cnt;
+    }
+};
