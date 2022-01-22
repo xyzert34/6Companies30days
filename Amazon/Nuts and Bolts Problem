@@ -1,0 +1,49 @@
+class Solution{
+public:	
+    int partition(char arr[],char pivot,int i,int j,unordered_map<char,int> m)
+    {
+        
+        int low=i;
+        for(int x=i;x<j;x++)
+        {
+            if(m[arr[x]]>m[pivot])
+            {
+                if(m[arr[x]]!=m[arr[low]])
+                    swap(arr[x],arr[low]);
+                low++;
+            }
+            else if(m[arr[x]]==m[pivot])
+            {
+                swap(arr[x],arr[j]);
+                x--;
+            }
+        }
+        swap(arr[low],arr[j]);
+        return low;
+    }
+    void quicksort(char nuts[],char bolts[],int i,int t,unordered_map<char,int> m)
+    {
+        if(i<t)
+        {
+            int pivot=partition(bolts,nuts[t],i,t,m);
+            partition(nuts,bolts[pivot],i,t,m);
+            quicksort(nuts,bolts,i,pivot-1,m);
+            quicksort(nuts,bolts,pivot+1,t,m);
+        }
+    }
+	void matchPairs(char nuts[], char bolts[], int n) {
+	    unordered_map<char,int> m;
+	    int x=9;
+	    m['!']=x--;
+	    m['#']=x--;
+	    m['$']=x--;
+	    m['%']=x--;
+	    m['&']=x--;
+	    m['*']=x--;
+	    m['@']=x--;
+	    m['^']=x--;
+	    m['~']=x--;
+	   quicksort(nuts,bolts,0,n,m);
+	}
+
+};
