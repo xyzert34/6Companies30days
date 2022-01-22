@@ -1,0 +1,25 @@
+class Solution{
+    public:
+    string solve(long long int n,string &ans)
+    {
+        if(n==0)
+            return ans;
+        char x;
+        if(n%26==0)
+            x='Z';
+        else
+            x=(char)(n%26-1+'A');
+        ans=x+ans;
+        if(ans[0]=='Z')
+            solve((n/26)-1,ans);
+        else 
+            solve(n/26,ans);
+        return ans;
+    }
+    string colName (long long int n)
+    {
+        string ans="";
+        ans=solve(n,ans);
+        return ans;
+    }
+};
