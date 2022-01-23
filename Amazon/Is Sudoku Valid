@@ -1,0 +1,38 @@
+class Solution{
+public:
+    bool isSafe(vector<vector<int>> mat,int r,int c)
+    {
+        for(int i=0;i<9;i++)
+        {
+            //row
+            if(mat[r][c]==mat[r][i] && c!=i)
+                return false;
+            //column
+            if(mat[r][c]==mat[i][c] && r!=i)
+                return false;
+        }
+        // check for 3*3 box
+        int r1=(r/3)*3;
+        int c1=(c/3)*3;
+        for(int i=r1;i<r1+3;i++)
+        {
+            for(int j=c1;j<c1+3;j++)
+            {
+                if(mat[r][c]==mat[i][j] && (r!=i && c!=j))
+                    return false;
+            }
+        }
+        return true;
+    }
+    int isValid(vector<vector<int>> mat){
+        for(int i=0;i<9;i++)
+        {
+            for(int j=0;j<9;j++)
+            {
+                if(mat[i][j]!=0 && !isSafe(mat,i,j))
+                    return 0;
+            }
+        }
+        return 1;
+    }
+};
