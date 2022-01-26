@@ -1,0 +1,59 @@
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        typedef pair<int,int> p;
+        queue<p> q;
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=0;j<grid[0].size();j++)
+            {
+                if(grid[i][j]==2)
+                    q.push({i,j});
+            }
+        }
+        int cnt=0;
+        int m=grid.size();
+        int n=grid[0].size();
+        int flag; 
+        while(!q.empty())
+        {
+            flag=0;
+            int t=q.size();
+            while(t--)
+            {
+                auto x=q.front();
+                q.pop();
+                if(x.second-1>=0 && grid[x.first][x.second-1]==1)
+                {   grid[x.first][x.second-1]=2;                    
+                    q.push({x.first,x.second-1});
+                 flag=1;
+                }
+                if(x.second+1<n && grid[x.first][x.second+1]==1)
+                {   grid[x.first][x.second+1]=2;                    
+                    q.push({x.first,x.second+1});
+                 flag=1;
+                }
+                if(x.first-1>=0 && grid[x.first-1][x.second]==1)
+                {   grid[x.first-1][x.second]=2;                    
+                    q.push({x.first-1,x.second});
+                 flag=1;
+                }
+                if(x.first+1<m && grid[x.first+1][x.second]==1)
+                {   grid[x.first+1][x.second]=2;                    
+                    q.push({x.first+1,x.second});
+                 flag=1;
+                }
+            }
+            if(flag==1) cnt++;
+        }
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=0;j<grid[0].size();j++)
+            {
+                if(grid[i][j]==1)
+                    return -1;
+            }
+        }
+        return cnt;
+    }
+};
