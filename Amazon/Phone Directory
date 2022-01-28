@@ -1,0 +1,80 @@
+struct Node{
+      Node* links[26];
+      bool flag=false;
+      bool isContainsKey(char ch){
+          return (links[ch-'a']!=NULL);
+      }
+      void doPut(char ch,Node* node){
+            links[ch-'a']=node;
+      }
+      Node* get(char ch){
+          return links[ch-'a'];
+      }
+      void setEnd(){
+          flag=true;
+      }
+      bool isEnd(){
+          return flag;
+      }
+    };
+class Trie{
+public:
+    void insert(string &word,Node* root){
+        Node* node=root;
+        for(int i=0;i<word.length();i++)
+        {
+            if(!node->isContainsKey(word[i]))
+                node->doPut(word[i],new Node());
+            node=node->get(word[i]);
+        }
+        node->setEnd();
+    }
+    void displayUntil(Node* curnode,string prefix,vector<string> &v)
+    {
+        if(curnode->isEnd())
+        {   
+            v.push_back(prefix);
+        }
+        for(char ch='a';ch<='z';ch++)
+        {
+            if(curnode->isContainsKey(ch)){
+                prefix.push_back(ch);
+                displayUntil(curnode->get(ch),prefix,v);
+                prefix.pop_back();
+            }
+        }
+    }
+    vector<vector<string>> display(string &str,Node* root)
+    {
+        string prefix="";
+        Node* node=root;
+        vector<string> v;
+        vector<vector<string>> ans;
+        for(int i=0;i<str.length();i++)
+        {
+            prefix+=str[i];
+            char last=prefix[i];
+            if(!node->isContainsKey(last))
+            {
+                break;
+            }
+            displayUntil(node->get(last),prefix,v);
+            node=node->get(last);
+            ans.push_back(v);
+            v.clear();
+        }
+        return ans;
+    }
+};
+
+vector<vector<string>> phoneDirectory(vector<string>&contactList, string &queryStr)
+{
+    Node* root=new Node();
+   	Trie trie;
+    int n=contactList.size();
+    for(int i=0;i<n;i++)
+    {
+		trie.insert(contactList[i],root);
+    }
+    return trie.display(queryStr, root);
+}
