@@ -1,0 +1,39 @@
+class Solution
+{
+public:    
+        int k=0; //k : starting row index
+        //m : ending row index
+        //n : ending column index
+        int l=0; //l : starting column index
+        int r;
+        vector<int> a1;
+    vector<int> spirallyTraverse(vector<vector<int> > matrix, int m, int n) 
+    {
+        while((k<m) && (l<n))
+        {
+            for(r=l;r<n;r++)
+            {
+                a1.push_back(matrix[k][r]);
+            }   k++;
+            for(r=k;r<m;r++)
+            {
+                a1.push_back(matrix[r][n-1]);
+            }  n--;
+            if(k<m)
+            {
+                for(r=n-1;r>=l;r--)
+                {
+                    a1.push_back(matrix[m-1][r]);
+                }   m--;
+            }
+            if(l<n)
+            {
+                for(r=m-1;r>=k;r--)
+                {
+                    a1.push_back(matrix[r][l]);
+                }   l++;
+            }
+        }
+        return a1;
+    }
+};
