@@ -1,0 +1,46 @@
+class Solution{
+    public:
+    // arr[] : int input array of integers
+    // k : the quadruple sum required
+    vector<vector<int> > fourSum(vector<int> &arr, int k) {
+        vector<int> ans;
+        vector<vector<int> > res;
+        int n=arr.size();
+        int x,y;
+        sort(arr.begin(),arr.end());
+        for(int i=0;i<n-3;i++)
+        {
+            for(int j=i+1;j<n-2;j++)
+            {
+                x=j+1;
+                y=n-1;
+                while(x<y)
+                {
+                    if(arr[i]+arr[j]+arr[x]+arr[y]<k)
+                        x++;
+                    else if(arr[i]+arr[j]+arr[x]+arr[y]>k)
+                        y--;
+                    else
+                    {
+                        ans.push_back(arr[i]);
+                        ans.push_back(arr[j]);
+                        ans.push_back(arr[x]);
+                        ans.push_back(arr[y]);
+                        res.push_back(ans);
+                        ans.clear();
+                        while(arr[x]==arr[x+1] && x<n)
+                            x++;
+                        while(arr[y]==arr[y-1] && y>0)
+                            y--;
+                        x++;    y--;
+                    }
+                }
+                while(arr[j]==arr[j+1] && j<n-2)
+                    j++;
+            }
+            while(arr[i]==arr[i+1] && i<n-3)
+                i++;
+        }
+        return res;
+    }
+};
