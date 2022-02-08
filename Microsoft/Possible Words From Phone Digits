@@ -1,0 +1,28 @@
+class Solution
+{
+    public:
+    //Function to find list of all words possible by pressing given numbers.
+    void solve(int x,vector<string> &ans,int a[],string res,int n,vector<string>code)
+    {
+        if(x==n)
+        {
+            ans.push_back(res);
+            return;
+        }
+        for(int i=0;i<code[a[x]].length();i++)
+        {
+            res+=code[a[x]][i];
+            solve(x+1,ans,a,res,n,code);
+            res.pop_back();
+        }
+        return;
+    }
+    vector<string> possibleWords(int a[], int N)
+    {
+        vector<string> code={"0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        vector<string> ans;
+        string res="";
+        solve(0,ans,a,res,N,code);
+        return ans;
+    }
+};
