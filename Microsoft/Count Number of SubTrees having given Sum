@@ -1,0 +1,26 @@
+/*
+Structure of the node of the binary tree is as
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+*/
+int solve(Node* root,int &cnt,int x)
+{
+    if(!root)
+        return 0;
+    int left=solve(root->left,cnt,x);
+    int right=solve(root->right,cnt,x);
+    if(root->data+left+right ==x)
+        cnt++;
+    return root->data+left+right;
+}
+//Function to count number of subtrees having sum equal to given sum.
+int countSubtreesWithSumX(Node* root, int X)
+{
+   int cnt=0;
+	 solve(root,cnt,X);
+	 return cnt;
+}
