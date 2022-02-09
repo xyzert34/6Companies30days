@@ -1,0 +1,20 @@
+class Solution
+{
+    public:
+    int dp[10001];
+    int solve(int i,int arr[])
+    {
+        if(i<0)
+            return 0;
+        if(dp[i]!=-1)
+            return dp[i];
+        int l=solve(i-1,arr);
+        int r=arr[i]+solve(i-2,arr);
+        return dp[i]=max(l,r);
+    }
+    int FindMaxSum(int arr[], int n)
+    {
+        memset(dp,-1,sizeof(dp));
+        return solve(n-1,arr);
+    }
+};
