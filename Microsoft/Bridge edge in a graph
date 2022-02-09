@@ -1,0 +1,35 @@
+class Solution
+{
+	public:
+  bool dfs(int src,int des,vector<int> &vis,vector<int> neww[])
+  {
+      if(src==des)   
+          return true;
+      vis[src]=1;
+      for(auto x: neww[src])
+      {
+          if(!vis[x])
+          {
+              if(dfs(x,des,vis,neww))
+                  return true;
+          }
+      }
+      return false;   
+  }
+  int isBridge(int V, vector<int> adj[], int c, int d) 
+  {
+      vector<int> vis(V,0);
+      vector<int> neww[V];
+      for(int i=0;i<V;i++)
+      {
+          for(auto x: adj[i])
+          {
+              if((x==c && i==d) || (x==d && i==c))
+                  continue;
+              neww[i].push_back(x);
+          }
+      }
+      return !dfs(c,d,vis,neww);
+  }
+
+};
