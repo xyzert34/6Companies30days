@@ -1,0 +1,39 @@
+class Solution{   
+public:
+    int lengthOfLongestAP(int A[], int n) {
+        if(n<=2)
+            return n;
+        int mx=2;
+        int t[n][n];
+        for(int i=0;i<n;i++)
+        {
+            t[i][n-1]=2;
+        }
+        for(int j=n-2;j>0;j--)
+        {
+            int i=j-1,k=j+1;
+            while(i>=0 && k<n)
+            {
+                if((A[j]*2)==A[i]+A[k])
+                {
+                    t[i][j]=t[j][k]+1;
+                    mx=max(mx,t[i][j]);
+                    i--;    k++;
+                }
+                else if((A[j]*2)<A[i]+A[k])
+                {
+                    t[i][j]=2;
+                    i--;
+                }
+                else
+                    k++;
+            }
+            while(i>=0)
+            {
+                t[i][j]=2;
+                i--;
+            }
+        }
+        return mx;
+    }
+};
