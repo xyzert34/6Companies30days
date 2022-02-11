@@ -1,0 +1,35 @@
+class Solution{
+    public:
+    pair<int,int> findSmallestRange(int arr[][N], int n, int k)
+    {
+        typedef pair<int,pair<int,int>> ppi;
+        priority_queue<ppi,vector<ppi>,greater<ppi>> minh;
+        pair<int,int> p;
+        int ans=INT_MAX;
+        int maxx=INT_MIN;
+        for(int i=0;i<k;i++)
+        {
+            minh.push({arr[i][0],{i,0}});
+            maxx=max(maxx,arr[i][0]);
+        }
+        while(minh.size()==k)
+        {
+            int a=minh.top().first;
+            int b=minh.top().second.first;
+            int c=minh.top().second.second;
+            minh.pop();
+            if(ans>maxx-a)
+            {
+                ans=maxx-a;
+                p={a,maxx};
+            }
+            c++;
+            if(c<n)
+            {
+                minh.push({arr[b][c],{b,c}});
+                maxx=max(maxx,arr[b][c]);
+            }
+        }
+        return p;
+    }
+};
