@@ -1,0 +1,36 @@
+class Solution{
+  public:
+  
+    //Function to return the name of candidate that received maximum votes.
+    vector<string> winner(string arr[],int n)
+    {
+        vector<string> ans;
+        if(n==0)
+        {
+            ans.push_back("");
+            ans.push_back("-1");
+            return ans;
+        }
+        unordered_map<string,int> m;
+        for(int i=0;i<n;i++)
+        {
+            m[arr[i]]++;
+        }
+        string x;
+        int a=INT_MIN;
+        unordered_map<string,int> :: iterator it;
+        for(it=m.begin();it!=m.end();it++)
+        {
+            if(it->second>a)
+            {
+                x=it->first;
+                a=it->second;
+            }
+            else if(it->second==a && it->first<x)
+                x=it->first;
+        }
+        ans.push_back(x);
+        ans.push_back(to_string(a));
+        return ans;
+    }
+};
