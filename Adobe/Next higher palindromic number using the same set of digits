@@ -1,0 +1,46 @@
+class Solution{
+  public:
+    string next_per(string m)
+    {
+        int n=m.length();
+        int i,j;
+        for(i=n-2;i>=0;i--)
+        {
+            if(m[i]<m[i+1])
+                break;
+        }
+        if(i<0)
+            return "-1";
+        else
+        {
+            for(j=n-1;j>i;j--)
+            {
+                if(m[j]>m[i])
+                {
+                    swap(m[j],m[i]);
+                    reverse(m.begin()+i+1,m.end());
+                    break;
+                }
+            }
+        }
+        return m;
+    }
+    string nextPalin(string N) { 
+        //complete the function here
+        string ans="";
+        int n=N.length();
+        if(n<=3)
+            return "-1";
+        int mid=n/2;
+        string m=N.substr(0,mid);
+        string first=next_per(m);
+        if(first=="-1")
+            return "-1";
+        ans+=first;
+        reverse(first.begin(),first.end());
+        string last=first;
+        if(n%2!=0)
+            ans+=N[mid];
+        return ans+last;
+    }
+};
