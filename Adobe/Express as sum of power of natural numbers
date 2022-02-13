@@ -1,0 +1,25 @@
+class Solution{
+    public:
+    long long mod=1e9+7;
+    long long dp[1001][1001];
+    int numOfWays(int n, int x)
+    {
+        int base=n;
+        int Sum=n;
+        for(int i=1;i<=base;i++)
+            dp[0][i]=0;
+        for(int i=0;i<=Sum;i++)
+            dp[i][0]=1;
+        for(int i=1;i<=base;i++)
+        {
+            long long result=pow(i,x);
+            for(int j=1;j<=Sum;j++)
+            {
+                dp[i][j]=dp[i-1][j]%mod;
+                if(j>=result)
+                    dp[i][j]=(dp[i][j]%mod+dp[i-1][j-result]%mod)%mod;
+            }
+        }
+        return dp[base][Sum]%mod;
+    }
+};
