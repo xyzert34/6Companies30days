@@ -1,0 +1,50 @@
+class Solution {
+public:
+    void do_swap(int i,int j,vector<int>& cal)
+    {
+        while(i!=j)
+        {
+            swap(cal[j],cal[j-1]);
+            j--;
+        }
+    }
+    int minSwaps(vector<vector<int>>& grid) {
+        int n=grid.size();
+        vector<int> cal;
+        for(int i=0;i<n;i++)
+        {
+            int cnt=0;
+            for(int j=n-1;j>=0;j--)
+            {
+                if(grid[i][j]==1)
+                    break;
+                cnt++;
+            }
+            cal.push_back(cnt);
+        }
+        int swapp=0,flag=0;
+        for(int i=0;i<cal.size()-1;i++)
+        {
+            int x=n-1-i;
+            if(cal[i]>=x)   continue;
+            flag=0;
+            int j;
+            for(j=i+1;j<cal.size();j++)
+            {
+                if(cal[j]>=x)
+                {
+                    flag=1;
+                    swapp+=(j-i);
+                    break;
+                }
+            }
+            if(flag==0)
+                return -1;
+            else
+            {
+                do_swap(i,j,cal);
+            }
+        }
+        return swapp;
+    }
+};
