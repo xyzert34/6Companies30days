@@ -1,0 +1,24 @@
+/* A binary tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+class Solution {
+  public:
+    int solve(Node* root)
+    {
+        if(!root)
+            return 0;
+        int cur=root->data;
+        int l=solve(root->left);
+        int r=solve(root->right);
+        root->data=l+r;
+        return l+r+cur;
+    }
+    void toSumTree(Node *node)
+    {
+        solve(node);
+    }
+};
