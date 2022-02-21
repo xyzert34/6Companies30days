@@ -1,0 +1,25 @@
+class Solution
+{
+    public:
+    //Function to find total number of unique paths.
+    void solve(int x1,int y1,int x2,int y2,int &cnt,vector<vector<int>> &vis)
+    {
+        if(x1>x2 || y1>y2 ||vis[x1][y1]==1)
+        return;
+        if(x1==x2 && y1==y2){
+            cnt++;
+            return;
+        }
+        vis[x1][y1]=1;
+        solve(x1+1,y1,x2,y2,cnt,vis);
+        solve(x1,y1+1,x2,y2,cnt,vis);
+        vis[x1][y1]=0;
+    }
+    int NumberOfPath(int a, int b)
+    {
+        vector<vector<int>> vis(a,vector<int> (b,0));
+        int cnt=0;
+        solve(0,0,a-1,b-1,cnt,vis);
+        return cnt;
+    }
+};
