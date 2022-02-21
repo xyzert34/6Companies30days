@@ -1,0 +1,10 @@
+class Solution{
+public:
+    int height(int N){
+        //since x*(x+1)/2 = N
+        //so we have to find positive root of x.
+        //x^2+x=2N     
+        int y=8*N+1;
+        return (sqrt(y)-1)/2;
+    }
+};
