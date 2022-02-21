@@ -31,3 +31,37 @@ class Solution{
         return ans;
     }
 };
+
+
+//Method 2
+class Solution{
+  public:
+    vector<int> find3Numbers(vector<int> arr, int N) {
+        vector<int> ans;
+        if(N<3)return ans;
+        int a=INT_MAX;
+        int b=INT_MAX;
+        int c=INT_MAX;
+        int a1=INT_MAX;
+        for(int i=0;i<N;i++){
+            if(arr[i]<=a)
+                a=arr[i];
+            else if(arr[i]<=b)
+            {    b=arr[i];
+                 a1=a;
+            }
+            else if(arr[i]<c)
+            {
+                c=arr[i];
+                break;
+            }
+        }
+        if(a1!=INT_MAX && b!=INT_MAX && c!=INT_MAX)
+        {
+            ans.push_back(a1);
+            ans.push_back(b);
+            ans.push_back(c);
+        }
+        return ans;
+    }
+};
