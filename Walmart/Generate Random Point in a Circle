@@ -1,0 +1,21 @@
+class Solution {
+public:
+    double x_c,y_c,r;
+    Solution(double radius, double x_center, double y_center) {
+        r=radius;
+        x_c=x_center;
+        y_c=y_center;
+    }
+    
+    vector<double> randPoint() {
+        double theta,length;
+        double x,y;
+        double random=1.0*rand()/RAND_MAX;
+        theta=random*2*3.14159265359;
+        double random2=1.0*rand()/RAND_MAX;
+        length=r*sqrt(random2);
+        x=x_c+(length)*cos(theta);
+        y=y_c+(length)*sin(theta);
+        return vector<double> {x,y};
+    }
+};
