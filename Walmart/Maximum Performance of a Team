@@ -1,0 +1,30 @@
+class Solution {
+public:
+    const int mod=1e9+7;
+    static bool comp(pair<int,int> &v1,pair<int,int> &v2){
+        return v1.second>v2.second;
+    }
+    int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
+        vector<pair<int,int>> v;
+        for(int i=0;i<n;i++)
+            v.push_back({speed[i],efficiency[i]});
+        sort(v.begin(),v.end(),comp);
+        typedef pair<int,int> p;
+        priority_queue<p,vector<p>,greater<p>> minh;
+        long long sum=0;
+        long long ans=0,result=INT_MIN;
+        for(int i=0;i<n;i++){
+            minh.push({v[i].first,v[i].second});
+            sum=(sum+v[i].first);
+            if(minh.size()>k){
+                int x=minh.top().first;
+                int y=minh.top().second;
+                minh.pop();
+                sum=(sum-x);
+            }
+            ans=(sum*v[i].second);
+            result=(max(ans,result));
+        }
+        return (result)%mod;
+    }
+};
