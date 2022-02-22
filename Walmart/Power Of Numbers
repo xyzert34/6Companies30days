@@ -1,0 +1,24 @@
+class Solution{
+    public:
+    //You need to complete this fucntion
+    long long solve(int N,int R){
+        if(R==0)return 1;
+        if(R==1)return N%mod;
+        if(R%2==0){
+            long long ans=solve(N,R/2);
+            ans=(ans*ans)%mod;
+            return ans;
+        }
+        else {
+            long long ans=solve(N,(R-1)/2);
+            ans=((ans*N)%mod*ans)%mod;
+            return ans;
+        }
+    }
+    long long power(int N,int R)
+    {
+        long long ans;
+        return (solve(N,R))%mod;
+    }
+
+};
