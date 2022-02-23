@@ -1,0 +1,30 @@
+class Solution {
+public:
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
+        vector<double> dist(n,INT_MIN);
+        dist[start]=1.0;
+        typedef pair<double,int> p;
+        vector<p> adj[n];
+        for(int i=0;i<edges.size();i++){
+            adj[edges[i][0]].push_back({succProb[i],edges[i][1]});
+            adj[edges[i][1]].push_back({succProb[i],edges[i][0]});
+        }
+        priority_queue<p> maxh;
+        maxh.push({1.0,start});
+        while(!maxh.empty())
+        {
+            double x=maxh.top().first;
+            int y=maxh.top().second;
+            maxh.pop();
+            for(auto z:adj[y])
+            {
+                if(dist[y]*z.first>dist[z.second]){
+                    dist[z.second]=dist[y]*z.first;
+                    maxh.push({dist[z.second],z.second});
+                }
+            }
+        }
+        if(dist[end]==INT_MIN) return 0;
+        return dist[end];
+    }
+};
